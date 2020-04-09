@@ -232,3 +232,42 @@ TASK_7_7
 Вывод результата предыдущей задачи закомментируйте.
 
 SOLUTION
+import pandas as pd
+df = pd.read_csv('music_log.csv')
+
+# Получим таблицу только с жанром rock и сохраним её в переменной rock
+df['genre'] == 'rock'
+rock = df[df['genre'] == 'rock']
+
+# Выделим время прослушивания роковых композиций в особую структуру данных
+# Сохраним столбец 'total play' таблицы rock в переменной rock_time.
+rock_time = rock['total play']
+# Обратитмся к новой Series c именем rock_time и посчитайте количество треков жанра рок, пропущенных в течение 5 секунд. 
+rock_haters = rock_time[rock_time <= 5].count()
+# print('Количество пропущенных треков жанра рок равно', rock_haters)
+
+# Выберем из исходной таблицы только строки с жанром 'pop' и сохраним эту новую таблицу в переменной pop.
+df['genre'] == 'pop'
+pop = df[df['genre'] == 'pop']
+
+# Теперь по аналогии с роком создайте Series, где хранятся только данные о времени воспроизведения композиций в жанре поп.
+pop_time = pop['total play']
+#Снова по аналогии с роком обратимся к Series, на сей раз pop_time, чтобы посчитать количество пропущенных в течение 5 секунд треков жанра поп. 
+pop_haters = pop_time[pop_time <= 5].count()
+# print('Количество пропущенных треков жанра поп равно', pop_haters)
+
+# Для обоих жанров посчитайте долю быстро пропущенных пользователями композиций в процентах.
+df['genre'] == 'rock'
+rock = df[df['genre'] == 'rock']
+rock_time = rock['total play']
+rock_haters = rock_time[rock_time <= 5].count()
+
+df['genre'] == 'pop'
+pop = df[df['genre'] == 'pop']
+pop_time = pop['total play']
+pop_haters = pop_time[pop_time <= 5].count()
+
+rock_skip=rock_haters/rock.shape[0]
+print('Доля пропущенных композиций жанра рок равна: {:.1%}'.format(rock_skip))
+pop_skip = pop_haters/pop.shape[0]
+print('Доля пропущенных композиций жанра поп равна: {:.1%}'.format(pop_skip))
